@@ -1,5 +1,5 @@
 import numpy
-from ..holes import stress_from_line, ret, slow_angle
+from ..ret import stress_from_line, ret, slow_angle
 
 
 def test_vertical_line():
