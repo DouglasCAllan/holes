@@ -5,6 +5,11 @@ from matplotlib import pyplot
 
 
 def stress_from_line(x1, y1, x2, y2, P, a, λ, x, y):
+    """
+    Compute the xx and xy components of the stress field from a line of holes.
+
+    """
+     
     c = (x2 - x1) / numpy.sqrt((x2 - x1)**2 + (y2 - y1)**2)
     s = (y2 - y1) / numpy.sqrt((x2 - x1)**2 + (y2 - y1)**2)
 
@@ -28,14 +33,34 @@ def stress_from_line(x1, y1, x2, y2, P, a, λ, x, y):
 
 
 def ret(σ_xx, σ_xy, C, L):
+    """
+    Compute retardation from stress, SOC, and path length.
+
+    Parameters
+    ----------
+    σ_xx : xx component of stress tensor in MPa; yy is negative of this
+    σ_xy : xy component of stress tensor in MPa
+    C : stress-optical coefficient in nm/cm/MPa
+    L : path length of light through sample in mm
+
+    Returns
+    -------
+    ret : retardation in nm
+    """
     return C * L * numpy.sqrt((2 * σ_xx)**2 + 4*σ_xy**2)
 
 
 def slow_angle(σ_xx, σ_xy):
+    """
+    Compute slow axis angle from stress tensor components.
+    """
     return 0.5 * numpy.arctan2(2 * σ_xy, 2 * σ_xx)
 
 
 def plot(ret, θ):
+    """
+    Create matplotlib figure containing retardation and slow axis angle.
+    """
     figure, (ret_ax, θ_ax) = pyplot.subplots(nrows=1, ncols=2)
     ret_image = ret_ax.imshow(ret)
     θ_image = θ_ax.imshow(θ,cmap="twilight")
