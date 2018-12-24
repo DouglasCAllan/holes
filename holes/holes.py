@@ -1,11 +1,12 @@
 # Experimenting with utf-8 encoding for Greek symbols (warning).
 # Added set encoding=utf-8 in .vimrc file to make this work.
-from numpy import sqrt, arctan2, linspace, meshgrid
+import numpy
+from matplotlib import pyplot
 
 
 def stress_from_line(x1, y1, x2, y2, P, a, λ, x, y):
-    c = (x2 - x1) / sqrt((x2 - x1)**2 + (y2 - y1)**2)
-    s = (y2 - y1) / sqrt((x2 - x1)**2 + (y2 - y1)**2)
+    c = (x2 - x1) / numpy.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+    s = (y2 - y1) / numpy.sqrt((x2 - x1)**2 + (y2 - y1)**2)
 
     # Compute "temporaries" that appear in the expressions
     # below multiple times to avoid redundant computation.
@@ -27,11 +28,11 @@ def stress_from_line(x1, y1, x2, y2, P, a, λ, x, y):
 
 
 def ret(σ_xx, σ_xy, C, L):
-    return C * L * sqrt((2 * σ_xx)**2 + 4*σ_xy**2)
+    return C * L * numpy.sqrt((2 * σ_xx)**2 + 4*σ_xy**2)
 
 
 def slow_angle(σ_xx, σ_xy):
-    return 0.5 * arctan2(2 * σ_xy, 2 * σ_xx)
+    return 0.5 * numpy.arctan2(2 * σ_xy, 2 * σ_xx)
 
 
 def plot(ret, θ):
